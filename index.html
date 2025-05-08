@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="chatpage.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    </head>
+<body>
+
+    <div class="top-left-controls">
+        <button class="panel-toggle-button" id="panelToggleButton">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="custom-select">
+            <div class="selected-option">
+                <span class="ai-name">Google</span>
+                <span class="model-version">Gemma 3</span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+            <div class="options">
+                <div class="option" data-model-key="DeepSeek:V3">
+                    <span class="ai-name">Deepseek</span>
+                    <span class="model-version">DeepSeek:V3</span>
+                    <div class="model-image-area"></div>
+                </div>
+                 <div class="option" data-model-key="DeepSeek:R1">
+                    <span class="ai-name">Deepseek</span>
+                    <span class="model-version">DeepSeek:R1</span>
+                    <div class="model-image-area"></div>
+                </div>
+                <div class="option" data-model-key="GPT-4o-mini">
+                    <span class="ai-name">Openai</span>
+                    <span class="model-version">GPT-4o-mini</span>
+                    <div class="model-image-area"></div>
+                </div>
+                 <div class="option" data-model-key="Meta:Liama-3">
+                    <span class="ai-name">Meta</span>
+                    <span class="model-version">Meta:Liama-3</span>
+                    <div class="model-image-area"></div>
+                </div>
+                 <div class="option" data-model-key="Gemma 3">
+                    <span class="ai-name">Google</span>
+                    <span class="model-version">Gemma 3</span>
+                    <div class="model-image-area"></div>
+                </div>
+                <div class="option" data-model-key="mistral-7b">
+                    <span class="ai-name">mistralai</span>
+                    <span class="model-version">mistral-7b</span>
+                    <div class="model-image-area"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-panel" id="sidePanel">
+        <div class="chat-panel-header">
+            <h2>CHATS</h2>
+            <button id="createChatButton" class="create-chat-button">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+        </div>
+        <ul class="chat-list">
+            <li class="chat-item active" data-chat-name="New Chat">
+                <span class="chat-title">New Chat</span>
+                <div class="chat-actions">
+                    <i class="fa-solid fa-ellipsis-v"></i>
+                </div>
+            </li>
+        </ul>
+        <button class="close-panel-button" id="closePanelButton">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="top-right">
+        <button class="settings-button" id="settingsButton">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+
+        <div class="settings-panel" id="settingsPanel">
+             <button class="settings-panel-item" id="profileButton">
+                 <i class="fa-solid fa-user"></i> Profile
+            </button>
+            <hr> <button class="settings-panel-item" id="customizeButton">
+                 <i class="fa-solid fa-sliders"></i> Customize
+            </button>
+            <hr> <button class="settings-panel-item" id="upgradeButton">
+                 <i class="fa-solid fa-gem"></i> Upgrade Plan
+            </button>
+            <hr> <button class="settings-panel-item" id="darkModeToggle">
+                 <i class="fa-solid fa-moon"></i> Theme
+            </button>
+        </div>
+
+         <div class="settings-panel" id="customizePanel">
+            <button class="settings-panel-item back-button" id="backToSettingsFromCustomizeButton">
+                 <i class="fa-solid fa-arrow-left"></i> Back to Settings
+            </button>
+            <hr>
+
+            <div class="customize-option">
+                 <label for="fontSizeSelect">Font Size:</label>
+                 <select id="fontSizeSelect">
+                     <option value="small">Small</option>
+                     <option value="medium" selected>Medium</option>
+                     <option value="large">Large</option>
+                 </select>
+            </div>
+
+            <div class="customize-option">
+                 <label for="languageSelect">Language:</label>
+                 <select id="languageSelect">
+                     <option value="en" selected>English</option>
+                     <option value="es">Spanish</option>
+                     <option value="fr">French</option>
+                 </select>
+            </div>
+
+             <div class="customize-option">
+                 <label for="aiPersonaTextarea">AI Persona:</label>
+                 <textarea id="aiPersonaTextarea" rows="4" placeholder="Describe how you want the AI to behave..."></textarea>
+            </div>
+
+             <div class="customize-option">
+                 <label for="userNameInput">What should ChatGPT call you?</label>
+                 <input type="text" id="userNameInput" placeholder="Your name">
+            </div>
+
+             <button class="settings-panel-item save-button" id="saveCustomizationButton">
+                 Save Customization
+            </button>
+        </div>
+
+        <div class="settings-panel" id="profilePanel">
+             <button class="settings-panel-item back-button" id="backToSettingsFromProfileButton">
+                 <i class="fa-solid fa-arrow-left"></i> Back to Settings
+            </button>
+            <hr>
+
+            <div class="profile-option">
+                 <h3>User Information</h3>
+                 <label for="profileNameInput">Name:</label>
+                 <input type="text" id="profileNameInput" placeholder="Your Name">
+            </div>
+
+             <div class="profile-option">
+                 <label for="profileEmailInput">Email:</label>
+                 <input type="email" id="profileEmailInput" placeholder="Your Email">
+            </div>
+
+            <hr> <button class="settings-panel-item" id="deleteAllChatsButton">
+                 <i class="fa-solid fa-trash"></i> Delete All Chats
+            </button>
+            <hr> <button class="settings-panel-item" id="logoutButton">
+                 <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+
+             </div>
+
+    </div>
+
+    <div class="header-container">
+        <h1>What can I help with?</h1>
+    </div>
+
+    <div class="conversation-container">
+        <div class="conversation" id="conversation">
+            </div>
+    </div>
+
+    <div class="container">
+        <div class="input-area">
+            <div class="input-row">
+                <button class="plus-button" id="plusBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    <input type="file" id="fileInput" style="display: none;">
+                </button>
+
+                <div id="imagePreviewContainer" class="image-preview-container">
+                    <img id="imagePreview" src="#" alt="Image preview">
+                    <button id="removeImageButton" class="remove-image-button">&times;</button>
+                </div>
+
+                <input type="text" placeholder="Type here" id="messageInput">
+
+                <button class="upload-button" id="uploadButton"> <i class="fa-solid fa-arrow-up upload-icon"></i>
+                </button>
+            </div>
+
+            <div class="action-buttons-row">
+                <button class="search-button" id="searchButton">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i> Web Search
+                </button>
+                <button class="reason-button" id="reasonButton">
+                    <i class="fa-regular fa-lightbulb lightbulb-icon"></i> Think
+                </button>
+                <button class="mic-button" id="micButton">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                </div>
+        </div>
+    </div>
+
+    <div id="contextMenu" class="context-menu">
+        </div>
+
+    <script src="chatpage.js"></script>
+</body>
+</html>

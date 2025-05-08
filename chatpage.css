@@ -1,0 +1,1543 @@
+/* Base Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0; /* Light mode background */
+    color: #333; /* Light mode text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode Body Styles */
+body.dark-mode {
+    background-color: #1e1e1e; /* Dark mode background */
+    color: #f0f0f0; /* Dark mode text */
+}
+
+.top-left,
+.top-right {
+    position: fixed;
+    z-index: 10;
+}
+
+/* Styles for the container holding the toggle button and dropdown */
+.top-left-controls {
+    position: fixed; /* Keep it fixed at the top left */
+    top: 15px;
+    left: 15px;
+    display: flex; /* Arrange button and dropdown side-by-side */
+    align-items: center; /* Vertically align items */
+    gap: 10px; /* Space between button and dropdown */
+    z-index: 10; /* Ensure it's above other content */
+}
+
+.panel-toggle-button {
+    background-color: transparent; /* Match dropdown style */
+    border: none; /* Match dropdown border */
+    border-radius: 7px; /* Match dropdown radius */
+    padding: 8px 10px; /* Adjust padding as needed */
+    cursor: pointer;
+    font-size: 1.1em; /* Adjust icon size */
+    color: #555; /* Match dropdown icon color */
+    line-height: 1; /* Prevent extra vertical space */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.panel-toggle-button:hover {
+    background-color: #e9e9e9; /* Match dropdown hover */
+}
+
+/* Dark Mode Panel Toggle Button */
+body.dark-mode .panel-toggle-button {
+    background-color: transparent;
+    color: #f0f0f0;
+    border-color: #555;
+}
+
+body.dark-mode .panel-toggle-button:hover {
+    background-color: #3a3a3a;
+}
+
+/* Style for the side panel itself */
+.side-panel {
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    width: 280px; /* Adjust width as needed */
+    height: 100vh; /* Full viewport height */
+    background-color: #ffffff; /* Panel background color */
+    border-right: 1px solid #ccc; /* Optional border */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateX(-100%); /* Initially hidden off-screen to the left */
+    transition: transform 0.3s ease-in-out, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    z-index: 1000; /* Ensure panel is above everything else */
+    display: flex; /* Use flexbox for content layout */
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Style for when the side panel is open */
+.side-panel.open {
+    transform: translateX(0); /* Slide into view */
+}
+
+/* Dark Mode Side Panel */
+body.dark-mode .side-panel {
+    background-color: #2b2b2b; /* Dark background for panel */
+    border-right: 1px solid #555; /* Darker border */
+    color: #f0f0f0; /* Light text */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Darker shadow */
+}
+
+/* Style for the close button inside the panel */
+.close-panel-button {
+    position: absolute; /* Position relative to the panel */
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em; /* Make close icon larger */
+    color: #888;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.close-panel-button:hover {
+    color: #333; /* Darken on hover */
+}
+
+/* Dark Mode Close Panel Button */
+body.dark-mode .close-panel-button {
+    color: #aaa;
+}
+
+body.dark-mode .close-panel-button:hover {
+    color: #fff;
+}
+
+/* Style for content within the panel (example) */
+.side-panel h2 {
+    margin-top: 30px; /* Add space below the close button */
+    margin-bottom: 15px;
+    color: #333; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Panel Content */
+body.dark-mode .side-panel h2 {
+    color: #f0f0f0;
+}
+
+body.dark-mode .side-panel p {
+    color: #ccc;
+}
+
+.top-right {
+    top: 15px;
+    right: 15px;
+    display: flex;
+    /* Use flex-direction column to stack settings panels */
+    flex-direction: column;
+    gap: 10px; /* Space between settings button and panel, and between panels */
+    align-items: flex-end; /* Align items to the right */
+    position: fixed; /* Ensure .top-right is fixed */
+    z-index: 10; /* Ensure it's above other content */
+}
+
+/* Custom Select */
+.custom-select {
+    position: relative;
+    width: 220px;
+    cursor: pointer;
+}
+
+.custom-select .selected-option {
+    background-color: #f0f0f0; /* Light mode background */
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid #000000; /* Light mode border */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9em;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-select .selected-option .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.custom-select .selected-option .ai-name {
+    font-weight: bold;
+    color: #555; /* Light mode text */
+    font-size: 1.0em;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.custom-select .selected-option .model-version {
+    color: #777; /* Light mode text */
+    font-size: 0.8em;
+    line-height: 1.2;
+    margin-left: 5px;
+    transition: color 0.3s;
+}
+
+.custom-select .selected-option i {
+    font-size: 0.9em;
+    color: #555; /* Light mode icon */
+    margin-left: 8px;
+    transition: color 0.3s;
+}
+
+.custom-select .selected-option:hover {
+    background-color: #e9e9e9; /* Light mode hover */
+}
+
+/* Dark Mode Custom Select */
+body.dark-mode .custom-select .selected-option {
+    background-color: #2b2b2b;
+    border-color: #555;
+}
+
+body.dark-mode .custom-select .selected-option .ai-name,
+body.dark-mode .custom-select .selected-option .model-version,
+body.dark-mode .custom-select .selected-option i {
+     color: #f0f0f0;
+}
+
+body.dark-mode .custom-select .selected-option:hover {
+    background-color: #3a3a3a;
+}
+
+
+.custom-select .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white; /* Light mode background */
+    border: 1px solid #060606; /* Light mode border */
+    border-top: none;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    z-index: 11;
+    /* Hide by default */
+    display: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    /* Ensure options stack vertically when displayed */
+    flex-direction: column;
+}
+
+.custom-select.open .options {
+    /* Use flex to show, maintaining column direction */
+    display: flex;
+}
+
+/* Dark Mode Custom Select Options */
+body.dark-mode .custom-select .options {
+    background-color: #2b2b2b;
+    border-color: #555;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.custom-select .options .option {
+    padding: 8px 10px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-select .options .option:hover {
+    background-color: rgb(249, 249, 249); /* Light mode hover */
+}
+
+/* Dark Mode Custom Select Option Item */
+body.dark-mode .custom-select .options .option:hover {
+    background-color: #3a3a3a;
+}
+
+
+.custom-select .options .option .ai-name {
+    font-weight: bold;
+    color: #555; /* Light mode text */
+    font-size: 1.0em;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.custom-select .options .option .model-version {
+    color: #777; /* Light mode text */
+    font-size: 0.8em;
+    line-height: 1.2;
+    margin-left: 5px;
+    transition: color 0.3s;
+}
+
+/* Dark Mode Option Text */
+body.dark-mode .custom-select .options .option .ai-name,
+body.dark-mode .custom-select .options .option .model-version {
+    color: #f0f0f0;
+}
+
+
+.custom-select .options .option .model-image-area {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    border-radius: 50px;
+    background-color: #eee; /* Light mode placeholder */
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Model Image Area */
+body.dark-mode .custom-select .options .option .model-image-area {
+    background-color: #555;
+}
+
+/* Header */
+.header-container {
+    padding-top: 100px;
+    position: fixed;
+    text-align: center;
+    margin-bottom: 50px;
+    transition: color 0.3s;
+}
+
+h1 {
+    color: #333; /* Light mode heading */
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    transition: color 0.3s;
+}
+
+/* Dark Mode Header */
+body.dark-mode .header-container h1 {
+    color: #f0f0f0;
+}
+
+
+/* Main Container (Input Area Wrapper) - Updated for Image Style */
+.container {
+    width: 99%;
+    max-width: 1000px;
+    background-color: #ffffff; /* Light mode background */
+    padding: 15px 20px; /* Adjusted padding */
+    border-radius: 30px; /* More rounded corners */
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    margin-bottom: 0; /* Remove bottom margin as it's fixed */
+    border: 1px solid #777; /* Remove border */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack input row and action buttons vertically */
+    gap: 10px; /* Space between the two rows */
+}
+
+/* Dark Mode Main Container */
+body.dark-mode .container {
+    background-color: #2b2b2b;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
+}
+
+
+/* --- Updated Input Area Structure --- */
+.input-area {
+    display: flex;
+    flex-direction: column; /* Stack the two rows vertically */
+    gap: 10px; /* Space between the input row and button row */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Row for text input, plus button, image preview, and send button */
+.input-row {
+    display: flex;
+    align-items: center;
+    /* Remove background and border from this inner row */
+    background-color: transparent;
+    border: none;
+    border-radius: 0; /* Remove rounded corners */
+    padding: 0; /* Remove padding */
+    width: 100%;
+    box-sizing: border-box;
+    gap: 8px; /* Space between elements in the input row */
+}
+
+
+.input-row .plus-button {
+    background-color: transparent;
+    border: none;
+    padding: 8px; /* Uniform padding */
+    cursor: pointer;
+    outline: none;
+    font-size: 20px;
+    color: #777; /* Light mode icon */
+    margin-right: 0; /* Remove margin */
+    transition: color 0.3s;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Dark Mode Plus Button */
+body.dark-mode .input-row .plus-button {
+    color: #ccc;
+}
+
+.input-row input[type="text"] {
+    flex-grow: 1; /* Input field takes available space */
+    border: none;
+    background-color: transparent;
+    padding: 8px 0; /* Adjust padding */
+    font-size: 16px;
+    outline: none;
+    color: #333; /* Light mode text */
+    transition: color 0.3s;
+    /* Remove margin */
+    margin: 0;
+}
+
+/* Dark Mode Input Text */
+body.dark-mode .input-row input[type="text"] {
+    color: #f0f0f0;
+}
+
+body.dark-mode .input-row input[type="text"]::placeholder {
+    color: #aaa; /* Darker placeholder text */
+}
+
+.input-row .upload-button { /* Send button */
+    background-color: #000; /* Dark background like the image */
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-left: 0; /* Remove margin */
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Dark Mode Upload Button */
+body.dark-mode .input-row .upload-button {
+    background-color: white; /* Adjust for dark mode */
+    color: #000;
+}
+
+
+/* Row for action buttons (Search, Think, Mic) */
+.action-buttons-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align buttons to the start (left) */
+    gap: 8px; /* Space between action buttons */
+    padding: 0; /* Remove padding */
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.action-buttons-row .search-button,
+.action-buttons-row .reason-button,
+.action-buttons-row .mic-button {
+    background-color: transparent; /* Light mode background */
+    border: 1px solid #777; /* Remove border */
+    border-radius: 18px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #555; /* Light mode text */
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    gap: 5px; /* Space between icon and text */
+}
+
+/* Dark Mode Action Buttons */
+body.dark-mode .action-buttons-row .search-button,
+body.dark-mode .action-buttons-row .reason-button,
+body.dark-mode .action-buttons-row .mic-button {
+    background-color: transparent; /* Dark mode background */
+    color: #f0f0f0; /* Dark mode text */
+}
+
+/* Remove margin from icons within buttons */
+.action-buttons-row .search-button .search-icon,
+.action-buttons-row .reason-button .lightbulb-icon,
+.action-buttons-row .mic-button i {
+    margin-right: 0;
+}
+
+.action-buttons-row .mic-button { /* Specific styling if needed */
+    color: #000000a1; /* Light mode specific color */
+    background-color: transparent; /* Light mode specific background */
+     /* Style the mic button differently if it's just an icon */
+     /* If it's just the icon, make it rounded */
+     width: 36px; /* Match send button size */
+     height: 36px; /* Match send button size */
+     border-radius: 50%; /* Make it round */
+     padding: 0; /* Remove padding */
+     justify-content: center; /* Center icon */
+}
+
+/* Dark Mode Mic Button */
+body.dark-mode .action-buttons-row .mic-button {
+    color: #f0f0f0; /* Dark mode specific color */
+    background-color: transparent; /* Dark mode specific background */
+}
+
+/* Button Active States (for action buttons) */
+.action-buttons-row .search-button.active,
+.action-buttons-row .reason-button.active,
+.action-buttons-row .mic-button.active {
+    background-color: #5aaaff; /* Light mode active background */
+    color: #fff; /* Light mode active text */
+    border: 1px solid #777; /* Remove border */
+}
+
+/* Dark Mode Button Active States */
+body.dark-mode .action-buttons-row .search-button.active,
+body.dark-mode .action-buttons-row .reason-button.active,
+body.dark-mode .action-buttons-row .mic-button.active {
+    background-color: #5aaaff; /* Dark mode active background */
+    color: #fff; /* Dark mode active text */
+}
+
+.action-buttons-row .search-button.active .search-icon,
+.action-buttons-row .reason-button.active .lightbulb-icon,
+.action-buttons-row .mic-button.active i {
+    color: #fff;
+}
+/* --- END Updated Input Area Structure --- */
+
+
+/* Conversation Area */
+.conversation-container {
+    width: 99%;
+    max-width: 1000px;
+    /* Adjust height calculation: Full height minus header, input container height, and some margin */
+    /* You might need to fine-tune the 180px value based on the final height of your input container */
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding: 20px;
+    margin: 20px auto; /* Margin above conversation */
+    background-color: #f0f0f0; /* Light mode background */
+    border-radius: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Conversation Area */
+body.dark-mode .conversation-container {
+    background-color: #1e1e1e;
+}
+
+
+.conversation {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    line-height: 1.4;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* User Message */
+.user-message {
+    align-self: flex-end;
+    background-color: #dbd9d9; /* Light mode background */
+    color: #000000; /* Light mode text */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode User Message */
+body.dark-mode .user-message {
+    background-color: #444;
+    color: #f0f0f0;
+}
+
+
+/* AI Message */
+.ai-message {
+    max-width: 100%;
+    align-self: flex-start;
+    color: #000000; /* Light mode text (will be overridden by inner elements) */
+    transition: color 0.3s;
+}
+
+/* Dark Mode AI Message */
+body.dark-mode .ai-message {
+     color: #f0f0f0; /* Dark mode text */
+}
+
+
+/* Styles for the container within the AI message bubble */
+.ai-message-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style for the AI model name display */
+.ai-name-display {
+    font-size: 1em;
+    color: #555; /* Light mode color */
+    margin-bottom: 5px; /* Space between name and content */
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Dark Mode AI Model Name Display */
+body.dark-mode .ai-name-display {
+    color: #aaa;
+}
+
+
+/* Style for the actual AI response content */
+.ai-response-content {
+    /* Add any specific styling for the content area if needed */
+}
+
+
+.ai-message strong {
+    font-weight: bold;
+    color: #000; /* Light mode bold text */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Bold Text */
+body.dark-mode .ai-message strong {
+    color: #fff;
+}
+
+
+.ai-message em {
+    font-style: italic;
+}
+
+.ai-message h1 {
+    font-size: 1.8em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    color: #333; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Headings */
+body.dark-mode .ai-message h1,
+body.dark-mode .ai-message h2,
+body.dark-mode .ai-message h3 {
+    color: #f0f0f0;
+}
+
+
+.ai-message h2 {
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    color: #444; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+.ai-message h3 {
+    font-size: 1.2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    color: #555; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+.ai-message ul {
+    margin: 0.5em 0 0.5em 1.5em;
+    padding-left: 0;
+}
+
+.ai-message li {
+    margin-bottom: 0.2em;
+}
+
+.ai-message p {
+    margin: 0.5em 0;
+}
+
+.ai-message table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.ai-message table th,
+.ai-message table td {
+    border: 1px solid #ddd; /* Light mode border */
+    padding: 8px;
+    transition: border-color 0.3s;
+}
+
+/* Dark Mode Table Borders */
+body.dark-mode .ai-message table th,
+body.dark-mode .ai-message table td {
+    border-color: #555;
+}
+
+
+.ai-message table th {
+    background-color: #f2f2f2; /* Light mode background */
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Table Header */
+body.dark-mode .ai-message table th {
+    background-color: #3a3a3a;
+}
+
+
+.ai-message code {
+    background: #f5f5f5; /* Light mode background */
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Inline Code */
+body.dark-mode .ai-message code {
+    background: #3a3a3a;
+    color: #e0e0e0; /* Lighter text for contrast */
+}
+
+
+.ai-message pre {
+    background: #f5f5f5; /* Light mode background */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Code Blocks (pre) */
+body.dark-mode .ai-message pre {
+    background: #2b2b2b; /* Darker background for code blocks */
+}
+
+/* Dark Mode Highlight.js Theme (You'll need to link a dark theme CSS) */
+/* For example, if you link 'atom-one-dark.min.css', you might need: */
+/* body.dark-mode .ai-message pre code.hljs {
+    background: #282c34;
+    color: #abb2bf;
+} */
+
+
+/* Image Preview Area (within input-row) */
+.image-preview-container {
+    display: none; /* Hidden by default, shown by JS when file is selected */
+    align-items: center;
+    margin-right: 10px; /* Space between preview and input field */
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.image-preview-container img {
+    max-width: 40px; /* Adjusted preview size for the row */
+    max-height: 40px; /* Adjusted preview size for the row */
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 4px;
+    object-fit: cover;
+    transition: border-color 0.3s;
+}
+
+/* Dark Mode Image Preview Border */
+body.dark-mode .image-preview-container img {
+    border-color: #555;
+}
+
+
+/* Button to remove the image preview */
+.remove-image-button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4d4d;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 16px; /* Adjust line height for vertical centering */
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Remove default button padding */
+}
+
+
+/* Chat Panel Styles */
+.chat-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc; /* Light mode border */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+/* Dark Mode Chat Panel Header Border */
+body.dark-mode .chat-panel-header {
+    border-color: #555;
+}
+
+
+.chat-panel-header h2 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Chat Panel Heading */
+body.dark-mode .chat-panel-header h2 {
+    color: #f0f0f0;
+}
+
+
+/* New Chat List Container */
+.chat-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Chat List */
+.chat-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+}
+
+/* Chat Item */
+.chat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 5px;
+    border-bottom: 1px solid #eee; /* Light mode border */
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: pointer; /* Indicate clickable */
+}
+
+/* Dark Mode Chat Item Border */
+body.dark-mode .chat-item {
+    border-color: #3a3a3a;
+}
+
+
+.chat-item:hover {
+    background-color: #f7f7f7; /* Light mode hover */
+}
+
+/* Dark Mode Chat Item Hover */
+body.dark-mode .chat-item:hover {
+    background-color: #3a3a3a;
+}
+
+
+.chat-item.active {
+    background-color: #e0e0e0; /* Light mode active background */
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Active Chat Item */
+body.dark-mode .chat-item.active {
+    background-color: #555;
+    color: #f0f0f0;
+}
+
+
+.chat-title {
+    flex-grow: 1; /* Allow title to take available space */
+    font-size: 1em;
+    color: #333; /* Light mode text */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 10px; /* Space before actions */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Chat Title */
+body.dark-mode .chat-title {
+    color: #f0f0f0;
+}
+
+
+.chat-actions {
+    cursor: pointer;
+    color: #888; /* Light mode icon */
+    font-size: 1em;
+    padding: 5px;
+    /* Ensure actions don't shrink */
+    flex-shrink: 0;
+    transition: color 0.3s;
+}
+
+.chat-actions:hover {
+    color: #555; /* Light mode hover */
+}
+
+/* Dark Mode Chat Actions */
+body.dark-mode .chat-actions {
+    color: #aaa;
+}
+
+body.dark-mode .chat-actions:hover {
+    color: #fff;
+}
+
+
+/* New Chat Button at Bottom */
+.create-chat-button {
+    flex: 0 0 auto;
+    background-color: transparent; /* Light mode background */
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 10px;
+    padding: 6px 12px;
+    margin: 0 120px 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #555; /* Light mode text */
+    font-size: 0.95em;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    width: 40px; /* Make button full width minus margin */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    justify-content: center; /* Center content horizontally */
+}
+
+.create-chat-button:hover {
+    background-color: #e9e9e9; /* Light mode hover */
+}
+
+/* Dark Mode Create Chat Button */
+body.dark-mode .create-chat-button {
+    background-color: #2b2b2b;
+    border-color: #555;
+    color: #f0f0f0;
+}
+
+body.dark-mode .create-chat-button:hover {
+    background-color: #3a3a3a;
+}
+
+
+/* Inline Chat Input for Creating/Renaming Chat */
+.chat-rename-input { /* Class added to the input during renaming */
+    flex-grow: 1; /* Allow input to take available space */
+    box-sizing: border-box;
+    padding: 4px; /* Adjusted padding */
+    font-size: 0.9em;
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 3px; /* Adjusted border radius */
+    outline: none;
+    margin-right: 10px; /* Space before actions */
+    background-color: #fff; /* Light mode background */
+    color: #333; /* Light mode text */
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.chat-rename-input:focus {
+    border-color: #888; /* Light mode focus border */
+}
+
+/* Dark Mode Rename Input */
+body.dark-mode .chat-rename-input {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #f0f0f0;
+}
+
+body.dark-mode .chat-rename-input:focus {
+    border-color: #aaa;
+}
+
+
+/* Context Menu Styles */
+.context-menu {
+    display: none; /* Hidden by default, shown by JS */
+    position: absolute;
+    background-color: #fff; /* Light mode background */
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 2000; /* Ensure it's above other elements */
+    min-width: 100px;
+    padding: 5px 0; /* Padding top and bottom */
+    list-style: none; /* Remove default list style if using ul/li */
+    margin: 0;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Dark Mode Context Menu */
+body.dark-mode .context-menu {
+    background-color: #2b2b2b;
+    border-color: #555;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+
+.context-menu-item { /* Class for individual menu options */
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #333; /* Light mode text */
+    transition: background-color 0.1s ease, color 0.3s;
+}
+
+.context-menu-item:hover {
+    background-color: #f0f0f0; /* Light mode hover */
+}
+
+/* Dark Mode Context Menu Item */
+body.dark-mode .context-menu-item {
+    color: #f0f0f0;
+}
+
+body.dark-mode .context-menu-item:hover {
+    background-color: #3a3a3a;
+}
+
+
+/* Styles for search results appended to AI messages */
+.search-resources {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc; /* Light mode border */
+    font-size: 0.9em;
+    color: #555; /* Light mode text */
+    transition: border-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode Search Resources */
+body.dark-mode .search-resources {
+    border-color: #555;
+    color: #aaa;
+}
+
+.search-resources h4 {
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    color: #333; /* Light mode heading */
+    transition: color 0.3s;
+}
+
+/* Dark Mode Search Resources Heading */
+body.dark-mode .search-resources h4 {
+    color: #f0f0f0;
+}
+
+.search-resources ul {
+    list-style: disc;
+    margin: 0 0 0 20px; /* Indent list */
+    padding: 0;
+}
+
+.search-resources li {
+    margin-bottom: 5px;
+}
+
+.search-resources li a {
+    color: #0066cc; /* Light mode link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.search-resources li a:hover {
+    text-decoration: underline;
+}
+
+/* Dark Mode Search Resources Link */
+body.dark-mode .search-resources li a {
+    color: #90b0ff; /* Dark mode link color */
+}
+
+
+/* Optional: Style for search snippet if included */
+.search-snippet {
+    font-size: 0.8em;
+    color: #777; /* Light mode text */
+    margin-top: 2px;
+    transition: color 0.3s;
+}
+
+/* Dark Mode Search Snippet */
+body.dark-mode .search-snippet {
+    color: #aaa;
+}
+
+/* --- New Styles for AI Message Actions --- */
+.ai-message .message-actions {
+    display: flex; /* Arrange icons horizontally */
+    gap: 10px; /* Space between icons */
+    margin-top: 10px; /* Space above icons */
+    /* Changed from flex-end to flex-start to align icons to the left */
+    justify-content: flex-start; /* Align icons to the left within the AI bubble */
+    padding-top: 10px; /* Add some padding above the icons */
+    border-top: 1px dashed #eee; /* Optional: subtle separator line */
+    transition: border-color 0.3s;
+}
+
+/* Dark Mode AI Message Actions Separator */
+body.dark-mode .ai-message .message-actions {
+    border-top-color: #444; /* Darker separator */
+}
+
+
+.ai-message .message-action-icon {
+    font-size: 1.1em; /* Adjust icon size */
+    color: #888; /* Subtle color for "transparent" look */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Dark Mode AI Message Action Icons */
+body.dark-mode .ai-message .message-action-icon {
+    color: #aaa; /* Lighter subtle color in dark mode */
+}
+
+body.dark-mode .ai-message .message-action-icon:hover {
+    color: #fff; /* Lighten on hover for dark mode */
+}
+
+
+
+/* --- Styles for the new Settings Button and Panel --- */
+.settings-button {
+    background-color: transparent; /* Light mode background */
+    border: none;
+    border-radius: 50%;
+    width: 50px; /* Set fixed width and height */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.6em; /* Icon size */
+    color: #555; /* Icon color */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.settings-button:hover {
+    background-color: #e9e9e9; /* Light mode hover */
+}
+
+/* Dark Mode Settings Button */
+body.dark-mode .settings-button {
+    background-color: transparent;
+    color: #f0f0f0;
+}
+
+body.dark-mode .settings-button:hover {
+    background-color: #3a3a3a;
+}
+
+/* Settings Panel, Customize Panel, and Profile Panel Base Styles */
+.settings-panel,
+.customize-panel,
+.profile-panel { /* Added profile-panel */
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px; /* Position below the settings button */
+    right: 0; /* Align to the right edge of .top-right */
+    background-color: #fff; /* Light mode background */
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 100; /* Ensure it's above most content but below modals */
+    /* Removed width and min-width from here */
+    box-sizing: border-box;
+    flex-direction: column; /* Stack items vertically */
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Dark Mode Settings Panel, Customize Panel, and Profile Panel */
+body.dark-mode .settings-panel,
+body.dark-mode .customize-panel,
+body.dark-mode .profile-panel { /* Added profile-panel */
+    background-color: #2b2b2b;
+    border-color: #555;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for when panels are open */
+.settings-panel.open,
+.customize-panel.open,
+.profile-panel.open { /* Added profile-panel */
+    display: flex; /* Use flex to show, maintaining column direction */
+}
+
+/* Specific width for Settings Panel */
+.settings-panel {
+    min-width: 200px;
+    width: 250px; /* Default width for settings panel */
+    padding: 10px 0; /* Padding for settings panel items */
+}
+
+/* Specific width and padding for Customize Panel and Profile Panel */
+#customizePanel,
+#profilePanel { /* Added profilePanel */
+    min-width: 400px; /* Set a minimum width */
+    width: 450px; /* Set a preferred width, adjust as needed */
+    padding: 15px 0; /* Slightly more vertical padding for customize and profile panels */
+}
+
+
+/* New style for individual settings panel items (buttons) */
+.settings-panel-item {
+    display: flex; /* Arrange icon and text horizontally */
+    align-items: center; /* Vertically align icon and text */
+    width: 100%; /* Make button full width of the panel */
+    padding: 10px 15px; /* Increased padding for better spacing */
+    border: none; /* Remove default button border */
+    background-color: transparent; /* Transparent background */
+    text-align: left; /* Align text to the left */
+    cursor: pointer;
+    font-size: 1em; /* Adjust font size */
+    color: #333; /* Light mode text */
+    transition: background-color 0.1s ease, color 0.3s;
+    gap: 10px; /* Space between icon and text */
+}
+
+.settings-panel-item i {
+    /* Style for icons within settings panel items */
+    font-size: 1.1em; /* Adjust icon size */
+    color: #555; /* Light mode icon color */
+    transition: color 0.3s;
+    width: 20px; /* Give icons a fixed width for alignment */
+    text-align: center; /* Center icon within its space */
+}
+
+.settings-panel-item:hover {
+    background-color: #f0f0f0; /* Light mode hover */
+}
+
+/* Dark Mode Settings Panel Items */
+body.dark-mode .settings-panel-item {
+    color: #f0f0f0; /* Dark mode text */
+}
+
+body.dark-mode .settings-panel-item i {
+     color: #aaa; /* Dark mode icon color */
+}
+
+body.dark-mode .settings-panel-item:hover {
+    background-color: #3a3a3a; /* Dark mode hover */
+}
+
+/* Style for separators in the settings panel, customize panel, and profile panel */
+.settings-panel hr,
+.customize-panel hr,
+.profile-panel hr { /* Added profile-panel */
+    border: none; /* Remove default border */
+    height: 1px; /* Set height for the line */
+    background-color: #eee; /* Light mode line color */
+    margin: 8px 0; /* Increased space above and below the line */
+    transition: background-color 0.3s;
+}
+
+/* Dark Mode Separator */
+body.dark-mode .settings-panel hr,
+body.dark-mode .customize-panel hr,
+body.dark-mode .profile-panel hr { /* Added profile-panel */
+    background-color: #555; /* Dark mode line color */
+}
+
+/* Styles for the Customization Panel and Profile Panel specific elements */
+.customize-panel h3,
+.profile-panel h3 { /* Added profile-panel */
+    font-size: 1.2em; /* Slightly larger heading */
+    color: #333; /* Light mode heading */
+    margin: 15px 15px 10px 15px; /* Adjusted margin */
+    transition: color 0.3s;
+}
+
+body.dark-mode .customize-panel h3,
+body.dark-mode .profile-panel h3 { /* Added profile-panel */
+    color: #f0f0f0; /* Dark mode heading */
+}
+
+.customize-option,
+.profile-option { /* Added profile-option */
+    display: flex;
+    flex-direction: column; /* Stack label and input vertically */
+    padding: 10px 15px; /* Increased padding for each option group */
+    gap: 8px; /* Increased space between label and input */
+    border-bottom: 1px solid #eee; /* Add subtle separator between options */
+    transition: border-color 0.3s;
+}
+
+/* Remove bottom border from the last option in customize and profile panels */
+.customize-option:last-of-type,
+.profile-option:last-of-type { /* Added profile-option */
+    border-bottom: none;
+}
+
+body.dark-mode .customize-option,
+body.dark-mode .profile-option { /* Added profile-option */
+    border-bottom-color: #3a3a3a; /* Dark mode separator */
+}
+
+
+.customize-option select,
+.customize-option input[type="text"],
+.customize-option textarea,
+.profile-option input[type="text"], /* Added profile-option inputs */
+.profile-option input[type="email"],
+.profile-option textarea {
+    width: 100%; /* Make inputs take full width */
+    padding: 10px; /* Increased padding */
+    border: 1px solid #ccc; /* Light mode border */
+    border-radius: 5px; /* Slightly more rounded */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    font-size: 0.9em;
+    background-color: #fff; /* Light mode background */
+    color: #333; /* Light mode text */
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.2s ease-in-out; /* Add box-shadow transition */
+    outline: none;
+}
+
+.customize-option select:focus,
+.customize-option input[type="text"]:focus,
+.customize-option textarea:focus,
+.profile-option input[type="text"]:focus, /* Added profile-option inputs */
+.profile-option input[type="email"]:focus,
+.profile-option textarea:focus {
+    border-color: #000000; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add subtle glow on focus */
+}
+
+body.dark-mode .customize-option select,
+body.dark-mode .customize-option input[type="text"],
+body.dark-mode .customize-option textarea,
+body.dark-mode .profile-option input[type="text"], /* Added profile-option inputs */
+body.dark-mode .profile-option input[type="email"],
+body.dark-mode .profile-option textarea {
+    background-color: #3a3a3a; /* Dark mode background */
+    border-color: #555; /* Dark mode border */
+    color: #f0f0f0; /* Dark mode text */
+}
+
+body.dark-mode .customize-option select::placeholder,
+body.dark-mode .customize-option input[type="text"]::placeholder,
+body.dark-mode .customize-option textarea::placeholder,
+body.dark-mode .profile-option input[type="text"]::placeholder, /* Added profile-option inputs */
+body.dark-mode .profile-option input[type="email"]::placeholder,
+body.dark-mode .profile-option textarea::placeholder {
+    color: #aaa; /* Darker placeholder text */
+}
+
+body.dark-mode .customize-option select:focus,
+body.dark-mode .customize-option input[type="text"]:focus,
+body.dark-mode .customize-option textarea:focus,
+body.dark-mode .profile-option input[type="text"]:focus, /* Added profile-option inputs */
+body.dark-mode .profile-option input[type="email"]:focus,
+body.dark-mode .profile-option textarea:focus {
+    border-color: #fff; /* Dark mode highlight border */
+    box-shadow: 0 0 5px rgb(255, 255, 255); /* Dark mode subtle glow */
+}
+
+
+.customize-option textarea,
+.profile-option textarea { /* Added profile-option */
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 80px; /* Give textarea a minimum height */
+}
+
+.save-button {
+    /* Style for the Save button */
+    justify-content: center; /* Center the text */
+    width: 90%;
+    margin: 15px; /* Increased margin */
+    padding: 10px 15px; /* Adjusted padding */
+    background-color: #333; /* Example button color */
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Add opacity transition */
+    font-weight: bold;
+}
+
+.save-button:hover {
+    background-color: #555; /* Darker hover */
+}
+
+.save-button:active {
+    opacity: 0.8; /* Reduce opacity when clicked */
+}
+
+body.dark-mode .save-button {
+    color: #000;
+     background-color: #fff; /* Dark mode example color */
+}
+
+body.dark-mode .save-button:hover {
+     background-color: #ddd; /* Darker hover */
+}
+
+/* Style for the Back button in the customize panel and profile panel */
+.customize-panel .back-button,
+.profile-panel .back-button { /* Added profile-panel */
+    /* Inherits .settings-panel-item styles */
+    margin-bottom: 10px; /* Add space below the back button */
+    color: #555; /* Subtle color */
+}
+
+body.dark-mode .customize-panel .back-button,
+body.dark-mode .profile-panel .back-button { /* Added profile-panel */
+    color: #aaa; /* Dark mode subtle color */
+}
+
+.customize-panel .back-button i,
+.profile-panel .back-button i { /* Added profile-panel */
+     color: #555; /* Subtle icon color */
+}
+
+body.dark-mode .customize-panel .back-button i,
+body.dark-mode .profile-panel .back-button i { /* Added profile-panel */
+    color: #aaa; /* Dark mode subtle icon color */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) { /* Adjusted breakpoint for better effect */
+    .container {
+        padding: 10px 15px; /* Reduce padding on smaller screens */
+        border-radius: 20px; /* Slightly less rounded on mobile */
+    }
+
+    .input-row {
+        padding: 0; /* Remove padding */
+    }
+
+    .input-row input[type="text"] {
+        font-size: 15px; /* Slightly smaller font */
+    }
+
+    .action-buttons-row {
+        /* Allow buttons to wrap if they don't fit */
+        flex-wrap: wrap;
+        justify-content: left; /* Center buttons when they wrap */
+        gap: 6px; /* Reduce gap */
+    }
+
+    .action-buttons-row .search-button,
+    .action-buttons-row .reason-button,
+    .action-buttons-row .mic-button {
+        font-size: 13px; /* Smaller font for buttons */
+        padding: 5px 10px; /* Adjust padding */
+    }
+
+    .conversation-container {
+        /* Adjust height based on new input area height if necessary */
+        /* Needs adjustment based on the new settings panel height */
+         height: calc(100vh - 160px); /* May need fine-tuning */
+    }
+
+     .settings-panel {
+         /* Keep the smaller width for settings panel */
+         min-width: 200px;
+         width: 250px;
+         top: 60px;
+         right: 10px;
+         padding: 10px 0; /* Padding for settings panel items */
+     }
+     #customizePanel,
+     #profilePanel { /* Added profilePanel */
+         /* Set a different width for customize panel on medium screens */
+         min-width: 250px; /* Adjust as needed */
+         width: 300px; /* Adjust as needed */
+         top: 60px;
+         right: 10px;
+         padding: 15px 0; /* Padding for customize and profile panel items */
+     }
+}
+
+
+@media (max-width: 600px) {
+    .custom-select{
+        width: 200px;
+    }
+
+    .container,
+    .conversation-container {
+        width: 95%;
+    }
+
+    .header-container h1 {
+        font-size: 2em; /* Smaller heading on very small screens */
+    }
+
+    .top-left-controls, .top-right {
+        gap: 5px; /* Reduce gap for top controls */
+    }
+
+     .container {
+         padding: 10px; /* Further reduce padding */
+     }
+     .settings-button {
+         width: 35px;
+         height: 35px;
+         font-size: 1.2em;
+     }
+      .settings-panel {
+         /* Keep the smaller width for settings panel */
+         min-width: 150px;
+         width: 200px;
+         top: 50px;
+         right: 5px;
+         padding: 10px 0; /* Padding for settings panel items */
+     }
+     #customizePanel,
+     #profilePanel { /* Added profilePanel */
+         /* Set a different width for customize panel on small screens */
+         min-width: 200px; /* Adjust as needed */
+         width: 300px; /* Adjust as needed */
+         top: 50px;
+         right: 5px;
+         padding: 15px 0; /* Padding for customize and profile panel items */
+     }
+}
+
