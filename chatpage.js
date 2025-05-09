@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
 
     // --- Element References ---
@@ -61,33 +60,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // Mapping from model version display text to API details
     const apiKeys = {
         'Gemma 3': {
-            key: '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', // Replace with your actual key
+            key: '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', // Replace with your actual key
             model: 'google/gemma-3-27b-it:free',
             supportsImage: true
         },
         'DeepSeek:V3': {
-            key: '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', // Replace with your actual key
+            key: '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', // Replace with your actual key
             model: 'deepseek/deepseek-chat-v3-0324:free',
             supportsImage: false
         },
         'DeepSeek:R1': {
-            key: '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', // Replace with your actual key
+            key: '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', // Replace with your actual key
             model: 'deepseek/deepseek-r1:free',
             supportsImage: false
         },
         'GPT-4o-mini': {
-            key: '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',
+            key: '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',
             model: 'openai/gpt-4o-mini',
             supportsImage: true
         },
-        'Meta:Liama-3': {
-            key: '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', // Replace with your actual key
-            model: 'meta-llama/llama-3.3-70b-instruct',
+        'Meta-llama-4': {
+            key: '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', // Replace with your actual key
+            model: 'meta-llama/llama-4-maverick:free',
             supportsImage: false
         },
-        'mistral-7b': {
-            key: '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', // Replace with your actual key
-            model: 'mistralai/mistral-7b-instruct:free',
+        'gemini-2.0-flash': {
+            key: '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', // Replace with your actual key
+            model: 'google/gemini-2.0-flash-exp:free',
             supportsImage: false
         }
         // Add other models here if needed
